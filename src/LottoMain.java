@@ -3,10 +3,11 @@ import lotto.LottoHashMap;
 
 import java.util.Arrays;
 
-public class Main {
+public class LottoMain {
     public static void main(String[] args) {
         Lotto lotto = new Lotto();
         LottoHashMap lottoHashMap = new LottoHashMap();
+
 
         int[] lottos = new int[] {44, 1, 0, 0, 31, 25};
         int[] winNums = new int[] {31, 10, 45, 1, 6, 19};
