@@ -1,7 +1,5 @@
 import open_chat.OpenChat;
 
-import java.util.Arrays;
-
 public class OpenChatMain {
     public static void main(String[] args) {
         OpenChat openChat = new OpenChat();
