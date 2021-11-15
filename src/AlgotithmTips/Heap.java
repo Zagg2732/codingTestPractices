@@ -1,8 +1,10 @@
-package AlgotithmTests;
+package AlgotithmTips;
 
 //우선순위 큐를 기반으로 만들어진 Heap 자료구조
 //완전 이진트리를 기반으로 최대, 최소를 구할때 최대효율을 보임
 //Java에서 heap은 우선순위큐를 뜻하는 PriorityQueue를 활용하여 구현할 수 있다.
+
+//TreeSet 이랑은 다르게 중복값도 허용된다!! (TreeSet 은 Set구조니까 당연한거지만)
 
 import java.util.Collections;
 import java.util.PriorityQueue;
