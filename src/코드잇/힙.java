@@ -50,6 +50,22 @@ public class 힙 {
         }
     }
 
+    //부모를 찾아가는 heapify. priority queue 삽입에 쓰임
+    public static void reverseHeapify(List<Integer> list, int index, int size) {
+        //마지막 인덱스를 기준으로 부모를 찾아가며 자리를 바꿔준다
+
+        if(index == 1) {  //root 노드까지 도달했다면 끝냄
+            return;
+        }
+
+        if(list.get(index / 2) < list.get(index)) { //부모의 값이 더 낮다면
+            int temp = list.get(index); //부모 노드의 값을 임시저장
+            list.set(index, list.get(index / 2));
+            list.set(index / 2, temp);
+            reverseHeapify(list, index / 2, size); //바뀐 자식도 reverseHeapify 재귀호출
+        }
+    }
+
     /*
     heap정렬을 해보자 (최대힙이면 오름차순, 최소힙이면 내림차순이 될것이다)
     heap 정렬의 특징
@@ -76,8 +92,36 @@ public class 힙 {
     2.부모와 비교해서 heap을 유지한다.
     3.부모를 계속 타고올라가면서 비교해야한다.
     */
-    public static void pqinsert(int value) {
+    public static void pqinsert(List<Integer> heapifiedList, int value) {
+        heapifiedList.add(value);
+        reverseHeapify(heapifiedList, heapifiedList.size() - 1, heapifiedList.size());
+    }
 
+    /*
+    priority queue 에서 최댓값을 추출해보자. (최소 heap이었으면 최솟값이 나옴)
+    1. 첫번째 인덱스는 최댓값이므로 추출함. 그 자리를 마지막 인덱스가 채움
+    2. 현재 첫번째 인덱스는 마지막 인덱스(였던 것) 이 들어가있음. 이전에 heap을 만족했었기 때문에 첫번째 인덱스 빼고는 다 heap을 만족한상태
+    3. 첫번째 인덱스에 대해 heapify를 해주면 끝!
+    */
+
+    public static int extractMax(List<Integer> heapifiedList) {
+
+        //마지막 인덱스를 첫번째 인덱스와 바꾼 후에 삭제할것임. 그것이 더 효율적이라는 개인적인 판단?
+        //만약 첫번째 인덱스를 remove 하고, 마지막 인덱스의 값을 첫번째에 add한다면 시간복잡도 O(n) 이 두번실행됨.
+        //get과 set으로 미리 인덱스 값들을 구해주고 set과 remove(마지막값)을 한다면 O(1) 이 되지않나?
+
+        //첫번째 인덱스를 구해준다
+        int extractedValue = heapifiedList.get(1);
+        int lastValue = heapifiedList.get(heapifiedList.size()-1);
+
+        System.out.println("lastValue = " + lastValue);
+        //마지막 인덱스를 첫번째 인덱스와 맞춘후 삭제
+        heapifiedList.remove(heapifiedList.get(heapifiedList.size()-1));
+        heapifiedList.set(1, lastValue);
+
+        heapify(heapifiedList,1,heapifiedList.size()-2);
+
+        return extractedValue;
     }
 
 
@@ -105,6 +149,17 @@ public class 힙 {
         heapsort(tree2);
         System.out.println("heapsort 후 tree2 = " + tree2.toString());
 
+        pqinsert(tree, 33);
+        pqinsert(tree, 34);
+        pqinsert(tree, 35);
+        pqinsert(tree, 52);
+        System.out.println("priority queue inesert 후 tree = " + tree.toString());
+        //heapsort(tree);
+        //System.out.println("heapsort 후 tree = " + tree.toString());
+
+        System.out.println("extractMax(tree) = " + extractMax(tree));
+
+        System.out.println("extractMax 후 tree = " + tree);
     }
 
 }
