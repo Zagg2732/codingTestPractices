@@ -17,13 +17,15 @@ Integer[] tree =  {null, 15, 5, 12, 14, 9, 10, 6, 2, 11, 1};
 
 */
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class 힙 {
 
     //Tree구조를 heap 정렬하는 heapify를 직접 만들어보자! 최대heap으로 만들자.
     //heapify 함수는 파라미터로 완전이진트리 list, heapify 하려는 노드의 index, 트리로 사용하는 리스트의 size를 받는다.
-    public static void heapify(Integer[] list, int index, int size) {
+    public static void heapify(List<Integer> list, int index, int size) {
         //해당 index를 기준으로 heapify시키자
         //완전이진트리 특성상 left child부터 채워진다.
         //만약 해당 index가 child가 없는 경우 out of bound 예외가 발생하겠지?
@@ -33,17 +35,17 @@ public class 힙 {
             return;
         }
 
-        if(list[index] < list[index * 2]) { //left child 의 값이 더 높다면
-            int temp = list[index]; //부모 노드의 값을 임시저장
-            list[index] = list[index * 2];
-            list[index * 2] = temp;
+        if(list.get(index) < list.get(index * 2)) { //left child 의 값이 더 높다면
+            int temp = list.get(index); //부모 노드의 값을 임시저장
+            list.set(index, list.get(index * 2));
+            list.set(index * 2, temp);
             heapify(list, index * 2, size); //바뀐 자식도 heapify 재귀호출
         }
 
-        if(list[index] < list[index * 2 + 1]) { //right child 의 값이 더 높다면
-            int temp = list[index];
-            list[index] = list[index * 2 + 1];
-            list[index * 2 + 1] = temp;
+        if(list.get(index) < list.get(index * 2 + 1)) { //left child 의 값이 더 높다면
+            int temp = list.get(index); //부모 노드의 값을 임시저장
+            list.set(index, list.get(index * 2 + 1));
+            list.set(index * 2 + 1, temp);
             heapify(list, index * 2 + 1, size); //바뀐 자식도 heapify 재귀호출
         }
     }
@@ -56,37 +58,52 @@ public class 힙 {
     3. 교체된 끝 node는 더이상 교체하지않음 (없는것처럼 취급, 최대 heap 이었다면 이미 최댓값이 맨뒤로 간것과 같음)
     4. root index 에서 다시 heapify 해줌 (root부터 재귀호출로 다시 heap이됨)
     5. 2~4 반복하고 끝나면 오름차순정렬이 완료됨
+    6. O(nlog n) 의 시간복잡도를 갖는다
     */
-    public static void heapsort(Integer[] heapifiedList) { //반드시 heapify가 완료된 배열이 들어와야한다
-        for(int i = heapifiedList.length - 1; i > 0; i--) {
-            int temp = heapifiedList[1];
-            heapifiedList[1] = heapifiedList[i];
-            heapifiedList[i] = temp;
+    public static void heapsort(List<Integer> heapifiedList) { //반드시 heapify가 완료된 배열이 들어와야한다
+        for(int i = heapifiedList.size() - 1; i > 0; i--) {
+            int temp = heapifiedList.get(1);
+            heapifiedList.set(1, heapifiedList.get(i));
+            heapifiedList.set(i, temp);
             heapify(heapifiedList, 1, i-2); //size는 점점 줄어들며 root node에서 heapify
         }
+    }
+
+    /*
+    heap은 우선순위큐를 구현하기 쉽다는 장점이있다.
+    priority queue insert 함수를 만들어서. 값을 주가해도 heap이 유지되도록 해보자.
+    1.새로운 값은 끝에 삽입된다.
+    2.부모와 비교해서 heap을 유지한다.
+    3.부모를 계속 타고올라가면서 비교해야한다.
+    */
+    public static void pqinsert(int value) {
+
     }
 
 
 
 
     public static void main(String[] args) {
-        Integer[] tree = {null, 15, 5, 12, 14, 9, 10, 6, 2, 11, 1};  // heapify하려고 하는 완전 이진 트리
 
-        heapify(tree, 1, tree.length);  // 노드 2에 heapify 호출
-        heapify(tree, 2, tree.length);  // 노드 2에 heapify 호출
-        heapify(tree, 3, tree.length);  // 노드 2에 heapify 호출
-
-        Integer[] tree2 = {null, 3, 5, 12, 14, 9, 10, 6, 2, 11, 1};  // heapify하려고 하는 완전 이진 트리
-
-        heapify(tree2, 2, tree.length);  // 노드 2에 heapify 호출
-        heapify(tree2, 3, tree.length);  // 노드 2에 heapify 호출
-        heapify(tree2, 1, tree.length);  // 노드 2에 heapify 호출
+        List<Integer> tree = new ArrayList<>(Arrays.asList(null, 15, 5, 12, 14, 9, 10, 6, 2, 11, 1));
+        List<Integer> tree2 = new ArrayList<>(Arrays.asList(null, 15, 5, 12, 14, 9, 10, 6, 2, 11, 1));
 
 
-        System.out.println("tree = " + Arrays.toString(tree));
-        System.out.println("heapify 후 tree2 = " + Arrays.toString(tree2));
+
+        heapify(tree, 1, tree.size());  // 노드 2에 heapify 호출
+        heapify(tree, 2, tree.size());  // 노드 2에 heapify 호출
+        heapify(tree, 3, tree.size());  // 노드 2에 heapify 호출
+
+
+        heapify(tree2, 2, tree.size());  // 노드 2에 heapify 호출
+        heapify(tree2, 3, tree.size());  // 노드 2에 heapify 호출
+        heapify(tree2, 1, tree.size());  // 노드 2에 heapify 호출
+
+
+        System.out.println("tree = " + tree.toString());
+        System.out.println("heapify 후 tree2 = " + tree2.toString());
         heapsort(tree2);
-        System.out.println("heapsort 후 tree2 = " + Arrays.toString(tree2));
+        System.out.println("heapsort 후 tree2 = " + tree2.toString());
 
     }
 
