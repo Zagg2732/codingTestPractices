@@ -24,13 +24,12 @@ public class 힙 {
     //Tree구조를 heap 정렬하는 heapify를 직접 만들어보자! 최대heap으로 만들자.
     //heapify 함수는 파라미터로 완전이진트리 list, heapify 하려는 노드의 index, 트리로 사용하는 리스트의 size를 받는다.
     public static void heapify(Integer[] list, int index, int size) {
-        //해당 index를 heap정렬시키자
-
+        //해당 index를 기준으로 heapify시키자
         //완전이진트리 특성상 left child부터 채워진다.
         //만약 해당 index가 child가 없는 경우 out of bound 예외가 발생하겠지?
         //그걸 방지하기위해 left child 가 유효 size 내에 있는지 확인부터한다.
         if(index * 2 > size) {  //left child가 size를 벗어났다면, 자식이 없는 node였던 것이므로 끝냄
-            System.out.println("index = " + index +" 는 자식이 없는 노드입니다.");
+            //System.out.println("index = " + index +" 는 자식이 없는 노드입니다.");
             return;
         }
 
@@ -49,6 +48,27 @@ public class 힙 {
         }
     }
 
+    /*
+    heap정렬을 해보자 (최대힙이면 오름차순, 최소힙이면 내림차순이 될것이다)
+    heap 정렬의 특징
+    1. 해당 배열은 heapify가 된 상태여야함
+    2. root 와 끝 node를 교체함
+    3. 교체된 끝 node는 더이상 교체하지않음 (없는것처럼 취급, 최대 heap 이었다면 이미 최댓값이 맨뒤로 간것과 같음)
+    4. root index 에서 다시 heapify 해줌 (root부터 재귀호출로 다시 heap이됨)
+    5. 2~4 반복하고 끝나면 오름차순정렬이 완료됨
+    */
+    public static void heapsort(Integer[] heapifiedList) { //반드시 heapify가 완료된 배열이 들어와야한다
+        for(int i = heapifiedList.length - 1; i > 0; i--) {
+            int temp = heapifiedList[1];
+            heapifiedList[1] = heapifiedList[i];
+            heapifiedList[i] = temp;
+            heapify(heapifiedList, 1, i-2); //size는 점점 줄어들며 root node에서 heapify
+        }
+    }
+
+
+
+
     public static void main(String[] args) {
         Integer[] tree = {null, 15, 5, 12, 14, 9, 10, 6, 2, 11, 1};  // heapify하려고 하는 완전 이진 트리
 
@@ -64,7 +84,9 @@ public class 힙 {
 
 
         System.out.println("tree = " + Arrays.toString(tree));
-        System.out.println("tree2 = " + Arrays.toString(tree2));
+        System.out.println("heapify 후 tree2 = " + Arrays.toString(tree2));
+        heapsort(tree2);
+        System.out.println("heapsort 후 tree2 = " + Arrays.toString(tree2));
 
     }
 
