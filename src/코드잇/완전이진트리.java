@@ -17,14 +17,23 @@ public class 완전이진트리 {
         bst.insert(14);
 
         bst.printSortedTree();
+        System.out.println("bst.searchValue(7) = " + bst.searchValue(bst.getRoot(),7));
+        System.out.println("bst.searchValue(19) = " + bst.searchValue(bst.getRoot(),19));
+        System.out.println("bst.searchValue(2) = " + bst.searchValue(bst.getRoot(),2));
+        System.out.println("bst.searchValue(100) = " + bst.searchValue(bst.getRoot(),100));
     }
 }
+
 class BinarySearchTree {
     private Node root; //기준이 되는 root 노드를 가지고있는다!
 
+    public Node getRoot() {
+        return root;
+    }
+
     public void dataComparison(Node node, int data) {
         //node의 데이터보다 data가 작으면 왼쪽
-        if(node.getData() > data) {
+        if (node.getData() > data) {
             try {
                 dataComparison(node.getLeftChild(), data);
             } catch (NullPointerException e) { // node.getLeftChild() 가 null 이면 NullPointerException 인것을 이용해서 데이터 넣어줌
@@ -46,7 +55,7 @@ class BinarySearchTree {
     public void insert(int data) {
 
         //아직 트리에 노드가없다면 루트가됨
-        if(this.root == null) {
+        if (this.root == null) {
             this.root = new Node(data);
             return;
         }
@@ -58,7 +67,7 @@ class BinarySearchTree {
 
     //Tree형 자료를 In-order 방식으로 값 출력하기
     public void printInOrder(Node node) {
-        if(node != null) {
+        if (node != null) {
             //왼쪽 get 하면서 재귀 , null을 만나면 돌아오면서 print하고, 오른쪽을 돈다. 이과정을 재귀함수로 반복
             printInOrder(node.getLeftChild());
             System.out.println(node.getData());
@@ -69,6 +78,31 @@ class BinarySearchTree {
     //정렬된 Tree 호출
     public void printSortedTree() {
         printInOrder(this.root);
+    }
+
+    public int searchValue(Node node, int data) {
+
+        //node 가 null 이면 재귀종료
+        if (node == null) return -1;
+
+        //data 를 찾았으면 return data
+        if (node.getData() == data) return data;
+
+        //-1이 리턴됐을경우를 체크하는 returnValue
+        int returnValue ;
+
+        if (node.getData() > data) {
+            returnValue = searchValue(node.getLeftChild(), data);
+        } else {
+            returnValue =searchValue(node.getRightChild(), data);
+        }
+
+        //-1이었으면 -1
+        if(returnValue == -1) {
+            return -1;
+        }
+
+        return data;
     }
 }
 
