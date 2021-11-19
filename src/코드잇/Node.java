@@ -5,7 +5,7 @@ package 코드잇;
 public class Node {
 
     private int data;       //Node 가 가진 data
-    private Node parent;
+    private Node parent;    //Node 의 부모 Node
     private Node leftChild; //Node의 왼쪽 자식
     private Node rightChild;//Node의 오른쪽 자식
 
@@ -47,14 +47,26 @@ public class Node {
         return parent;
     }
 
+    public void setData(int data) {
+        this.data = data;
+    }
+
     public void setParent(Node parent) {
         this.parent = parent;
     }
 
     @Override
     public String toString() {
+        String parent = "";
+        try {
+            parent += getParent().getData();
+        } catch (NullPointerException e) {
+            parent += "null";
+        }
+
         return "Node{" +
                 "data=" + data +
+                ", parent=" + parent +
                 ", leftChild=" + leftChild +
                 ", rightChild=" + rightChild +
                 '}';
