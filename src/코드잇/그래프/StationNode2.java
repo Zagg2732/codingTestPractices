@@ -8,6 +8,8 @@ import java.util.*;
 public class StationNode2 {
     private String name;
     private HashMap<String, StationNode2> adjacentStations = new HashMap<>();
+    private boolean isVisited = false; //탐색에 사용될 방문여부 boolean, 기본은 false 방문했을시 true가된다.
+
 
     public StationNode2(String name) {
         this.name = name;
@@ -23,32 +25,25 @@ public class StationNode2 {
         return name;
     }
 
+    public boolean isVisited() {
+        return isVisited;
+    }
+
+    public void setVisited() {
+        this.isVisited = true;
+    }
+
     public HashMap<String, StationNode2> getAdjacentStations() {
         return adjacentStations;
     }
 
-    @Override
-    public String toString() {
-        return "StationNode2{" +
-                "name='" + name + '\'' +
-                '}';
-    }
-
-    public static void main(String[] args) throws IOException {
-        //subway text 파일 읽기. 파일주소를 잘 맞춰주자
-        List<String> lines = Files.readAllLines(Paths.get("C:\\codingTestPractices\\src\\코드잇\\그래프\\subway.txt"));
-        System.out.println(lines);
+    public static Map<String, StationNode2> makeStationMap() throws IOException {
 
         //역 해시맵
         Map<String, StationNode2> stationMap = new HashMap<>();
 
-        //기본형
-        stationMap.put("가산역", new StationNode2("가산역"));
-        //근데이미 있다면? 이런식입니다..
-        if (stationMap.containsKey("가산역") && !stationMap.containsKey("이전역")) {
-            stationMap.get("가산역").addConnection(new StationNode2("이전역"));
-        }
-
+        //subway text 파일 읽기. 파일주소를 잘 맞춰주자
+        List<String> lines = Files.readAllLines(Paths.get("C:\\codingTestPractices\\src\\코드잇\\그래프\\subway.txt"));
 
         for (int i = 1; i < lines.size(); i++) {  //subway.txt 의 첫 번째 줄을 제외한 나머지가 노선도 (i = 1부터 시작)
             //역 이름이 있는 부분을 split 해서 List에 넣음
@@ -85,6 +80,23 @@ public class StationNode2 {
                 }
             }
         }
+
+        return stationMap;
+    }
+
+
+    @Override
+    public String toString() {
+        return "StationNode2{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+
+    public static void main(String[] args) throws IOException {
+
+        Map<String, StationNode2> stationMap = makeStationMap();
+
+
         //인접역 HashMap
         System.out.println(stationMap.get("신당").getAdjacentStations());
         System.out.println(stationMap.get("강남").getAdjacentStations());
