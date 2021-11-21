@@ -1,4 +1,4 @@
-package 코드잇;
+package 코드잇.트리;
 
 
 //트리 Node
@@ -18,7 +18,7 @@ public class Node {
         }
     }
 
-
+    //Node 생성자
     public Node(int data) {
         this.data = data;
     }
@@ -55,18 +55,41 @@ public class Node {
         this.parent = parent;
     }
 
+    //부모노드 여부 체크 (부모존재시 true)
+    public boolean hasParent() {
+        boolean bool = (parent == null) ? false : true;
+        return bool;
+    }
+
+    //자식노드 여부 체크 (존재시 false)
+    public boolean hasLeftChild() {
+        boolean bool = (leftChild == null) ? false : true;
+        return bool;
+    }
+
+    public boolean hasRightChild() {
+        boolean bool = (rightChild == null) ? false : true;
+        return bool;
+    }
+
+    public void deleteNode() {
+        this.parent = null;
+        this.leftChild = null;
+        this.rightChild = null;
+    }
+
+
+    //BST 노드중 특정 노드의 자식들중 가장 낮은 data를 가진 노드 찾기
+    public Node findMinInBST(Node node) {
+        if(node.hasLeftChild()) findMinInBST(node.getLeftChild());
+        return node;
+    }
+
     @Override
     public String toString() {
-        String parent = "";
-        try {
-            parent += getParent().getData();
-        } catch (NullPointerException e) {
-            parent += "null";
-        }
-
         return "Node{" +
                 "data=" + data +
-                ", parent=" + parent +
+                ", parent=" + parent.getData() +
                 ", leftChild=" + leftChild +
                 ", rightChild=" + rightChild +
                 '}';

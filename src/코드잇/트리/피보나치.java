@@ -1,4 +1,4 @@
-package 코드잇;
+package 코드잇.트리;
 
 public class 피보나치 {
     public static void main(String[] args) {

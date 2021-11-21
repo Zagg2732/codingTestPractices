@@ -1,4 +1,4 @@
-package 코드잇;
+package 코드잇.트리;
 
 public class 팔린드롬 {
     //팔린드롬은 거꾸로해도 긔엽긔처럼 앞뒤가 똑같은거임

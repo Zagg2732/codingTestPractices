@@ -1,4 +1,4 @@
-package 코드잇;
+package 코드잇.트리;
 
 public class 선형탐색 {
     //일렬로쭉탐색하는것을 선형탐색 (Linear Search) 라고한다.

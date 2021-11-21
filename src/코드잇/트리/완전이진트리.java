@@ -1,4 +1,4 @@
-package 코드잇;
+package 코드잇.트리;
 
 
 //이진탐색트리(BinarySearchTree) 는 이진트리로 이루어져 있다.
@@ -19,13 +19,9 @@ public class 완전이진트리 {
         bst.insert(4);
         bst.insert(14);
 
-        bst.printSortedTree();
-        System.out.println("bst.searchNode(7) = " + bst.searchNode(bst.getRoot(),7));
-        System.out.println("bst.searchNode(19) = " + bst.searchNode(bst.getRoot(),19));
-        System.out.println("bst.searchNode(2) = " + bst.searchNode(bst.getRoot(),2));
         System.out.println("bst.searchNode(100) = " + bst.searchNode(bst.getRoot(),100));
 
-        System.out.println("bst.deleteNode(bst.getRoot(), 2) = " + bst.deleteNode(bst.getRoot(), 2));
+        System.out.println("bst.deleteNode(bst.getRoot(), 3) = " + bst.deleteNode(bst.getRoot(), 3));
         bst.printSortedTree();
     }
 }
@@ -84,6 +80,7 @@ class BinarySearchTree {
             System.out.println(node.getData());
             printInOrder(node.getRightChild());
         }
+        return;
     }
 
     //정렬된 Tree 호출
@@ -185,7 +182,21 @@ class BinarySearchTree {
         } else { //자식이 둘다 있을때
             //자식이 둘다 있을경우 오른쪽 노드에서 제일 낮은값으로 Data를 대체하고 삭제한다.
             //그러면 이진탐색트리의 조건을 만족하면서 삭제가 완료된다.
+            //오른쪽 자식의 node기준으로 min Node 값 구함
 
+            Node minNode;
+
+            System.out.println(searchedNode.findMinInBST(searchedNode.getRightChild()));
+
+            minNode = searchedNode.findMinInBST(searchedNode.getRightChild());
+            int minData = minNode.getData();
+
+            //searchedNode를 오른쪽자식기준 최솟값으로 변경함 (BST 성질 유지하면서 기존 Data는 사라짐)
+            searchedNode.setData(minData);
+
+            //minNode 삭제
+            System.out.println(minNode);
+            minNode = null;
         }
 
         return true;
