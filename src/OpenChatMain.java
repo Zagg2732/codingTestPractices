@@ -1,4 +1,4 @@
-import open_chat.OpenChat;
+import 프로그래머스.open_chat.OpenChat;
 
 public class OpenChatMain {
     public static void main(String[] args) {

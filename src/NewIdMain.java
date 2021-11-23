@@ -1,4 +1,4 @@
-import new_id.NewId;
+import 프로그래머스.new_id.NewId;
 
 public class NewIdMain {
     public static void main(String[] args) {

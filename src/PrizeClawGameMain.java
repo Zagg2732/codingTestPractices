@@ -1,4 +1,4 @@
-import prize_claw_game.PrizeClawGame;
+import 프로그래머스.prize_claw_game.PrizeClawGame;
 
 public class PrizeClawGameMain {
     //https://programmers.co.kr/learn/courses/30/lessons/64061

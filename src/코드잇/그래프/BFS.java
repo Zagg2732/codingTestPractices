@@ -107,7 +107,7 @@ public class BFS {
         System.out.println(bfs.stationMap.get("(대전)신흥").isVisited());
 
         //하나 의문점. BFS 는 수평방향으로 순회하는것인데 나는 List가 아닌 HashMap으로 저장했음
-        //그럴경우 HashMap은 순서보장이 되지않으니 BFS가 아닌것인가?
+        //그럴경우 HashMap은 순서보장이 되지않으니 BFS가 아닌것인가? -> BFS나 DFS는 깊이탐색이기 때문에 순서는 중요하지않다고한다!
 
     }
 }

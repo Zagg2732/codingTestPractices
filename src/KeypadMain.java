@@ -1,4 +1,4 @@
-import keypad.Keypad;
+import 프로그래머스.keypad.Keypad;
 
 public class KeypadMain {
     public static void main(String[] args) {

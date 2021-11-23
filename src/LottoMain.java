@@ -1,5 +1,5 @@
-import lotto.Lotto;
-import lotto.LottoHashMap;
+import 프로그래머스.lotto.Lotto;
+import 프로그래머스.lotto.LottoHashMap;
 
 import java.util.Arrays;
 

@@ -1,6 +1,5 @@
-import english_to_number.EngToNum;
-import english_to_number.EngToNumReplaceAll;
-import open_chat.OpenChat;
+import 프로그래머스.english_to_number.EngToNum;
+import 프로그래머스.english_to_number.EngToNumReplaceAll;
 
 public class EngToNumMain {
     public static void main(String[] args) {
